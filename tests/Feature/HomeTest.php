@@ -14,6 +14,6 @@ class HomeTest extends TestCase
     {
         $response = $this->get('/');
 
-        $this->assertInertia($response, 'Home');
+        $this->assertInertia($response, 'Home', true);
     }
 }
