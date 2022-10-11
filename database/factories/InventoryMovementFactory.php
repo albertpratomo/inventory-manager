@@ -19,7 +19,6 @@ class InventoryMovementFactory extends Factory
         return [
             'quantity' => fake()->numberBetween(1, 10),
             'unit_price' => (int) fake()->numerify('##0'),
-            'remaining_quantity' => 0,
         ];
     }
 }
