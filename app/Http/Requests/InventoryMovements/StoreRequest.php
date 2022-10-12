@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\InventoryMovements;
 
+use App\Models\InventoryMovement;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -14,7 +15,20 @@ class StoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'quantity' => 'required|integer|numeric',
+            'quantity' => [
+                'required',
+                'integer',
+                'numeric',
+                function ($attribute, $value, $fail) {
+                    if ($value < 0) {
+                        $quantityAvailable = InventoryMovement::available()->sum('remaining_quantity');
+
+                        if ($quantityAvailable < abs($value)) {
+                            $fail("Only $quantityAvailable units available.");
+                        }
+                    }
+                },
+            ],
             'unit_price' => 'integer|numeric|nullable',
         ];
     }
