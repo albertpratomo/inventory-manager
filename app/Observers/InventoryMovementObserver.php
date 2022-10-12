@@ -23,8 +23,6 @@ class InventoryMovementObserver
         if ($movement->quantity < 0) {
             $quantityOut = abs($movement->quantity);
 
-            // $this->validateInventoryIsSufficient($quantityOut);
-
             // Apply from available (remaining) inventory until $quantityOut is satisfied.
             while ($quantityOut > 0) {
                 $inventory = InventoryMovement::available()->oldest()->first();

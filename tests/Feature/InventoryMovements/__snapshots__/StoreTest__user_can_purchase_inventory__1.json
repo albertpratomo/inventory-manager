@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "quantity": 1,
+        "unit_price": 1000,
+        "remaining_quantity": 1
+    },
+    {
+        "id": 2,
+        "quantity": 2,
+        "unit_price": 2000,
+        "remaining_quantity": 2
+    },
+    {
+        "id": 3,
+        "quantity": 2,
+        "unit_price": 1500,
+        "remaining_quantity": 2
+    },
+    {
+        "id": 4,
+        "quantity": 88,
+        "unit_price": 1000,
+        "remaining_quantity": 88
+    }
+]
