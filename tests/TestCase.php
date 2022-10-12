@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-use Tests\Concerns\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use OwowAgency\Snapshots\MatchesSnapshots;
 use Tests\Concerns\CreatesApplication;
+use Tests\Concerns\RefreshDatabase;
 
 abstract class TestCase extends BaseTestCase
 {
