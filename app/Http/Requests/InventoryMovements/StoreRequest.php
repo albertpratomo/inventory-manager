@@ -15,7 +15,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'quantity' => 'required|integer|numeric',
-            'unit_price' => 'integer|numeric',
+            'unit_price' => 'integer|numeric|nullable',
         ];
     }
 }

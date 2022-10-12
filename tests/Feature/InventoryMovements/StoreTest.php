@@ -27,6 +27,21 @@ class StoreTest extends TestCase
         $this->assertInventoryMovements();
     }
 
+    /** @test */
+    public function user_can_apply_inventory(): void
+    {
+        $this->seed(InventoryMovementSeederSimple::class);
+
+        $response = $this->makeRequest([
+            'quantity' => -2,
+            'unit_price' => null,
+        ]);
+
+        $this->assertResponse($response);
+
+        $this->assertInventoryMovements();
+    }
+
     private function makeRequest(array $data): TestResponse
     {
         return $this->post('inventory-movements', $data);
