@@ -18,5 +18,29 @@ class InventoryMovementObserver
                 ? $movement->quantity
                 : 0;
         }
+
+        // If quantity is negative, that means user wants to apply some inventory.
+        if ($movement->quantity < 0) {
+            $quantityOut = abs($movement->quantity);
+
+            // $this->validateInventoryIsSufficient($quantityOut);
+
+            // Apply from available (remaining) inventory until $quantityOut is satisfied.
+            while ($quantityOut > 0) {
+                $inventory = InventoryMovement::available()->oldest()->first();
+
+                $remainingQuantity = $inventory->remaining_quantity - $quantityOut;
+
+                if ($remainingQuantity < 0) {
+                    $quantityOut = abs($remainingQuantity);
+
+                    $remainingQuantity = 0;
+                } else {
+                    $quantityOut = 0;
+                }
+
+                $inventory->update(['remaining_quantity' => $remainingQuantity]);
+            }
+        }
     }
 }

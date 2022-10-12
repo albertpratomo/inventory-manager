@@ -3,13 +3,13 @@
         "id": 1,
         "quantity": 1,
         "unit_price": 1000,
-        "remaining_quantity": 1
+        "remaining_quantity": 0
     },
     {
         "id": 2,
         "quantity": 2,
         "unit_price": 2000,
-        "remaining_quantity": 2
+        "remaining_quantity": 1
     },
     {
         "id": 3,

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class InventoryMovement extends Model
 {
@@ -17,4 +18,13 @@ class InventoryMovement extends Model
     protected $fillable = [
         'quantity', 'unit_price', 'remaining_quantity',
     ];
+
+    /**
+     * Scope only InventoryMovements that still has remaining quantity.
+     */
+    public function scopeAvailable(Builder $query): Builder
+    {
+        return $query->where('quantity', '>', 0)
+            ->where('remaining_quantity', '>', 0);
+    }
 }

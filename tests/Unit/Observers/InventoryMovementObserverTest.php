@@ -9,7 +9,7 @@ use Tests\TestCase;
 class InventoryMovementObserverTest extends TestCase
 {
     /** @test */
-    public function applying_inventory_updates_remaining_quantity_of_previous_entries(): void
+    public function applying_inventory_decrements_remaining_quantity_of_previous_entries(): void
     {
         // Purchase 5 units in different prices.
         $this->seed(InventoryMovementSeederSimple::class);
@@ -21,7 +21,7 @@ class InventoryMovementObserverTest extends TestCase
         ]);
 
         // Assert that the remaining_quantity of previous InventoryMovements
-        // are updated correctly.
+        // are decremented correctly.
         $this->assertMatchesJsonSnapshot(InventoryMovement::all([
             'id', 'quantity', 'unit_price', 'remaining_quantity',
         ])->toArray());
