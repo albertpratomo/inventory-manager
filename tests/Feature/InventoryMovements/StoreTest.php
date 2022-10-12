@@ -28,6 +28,18 @@ class StoreTest extends TestCase
     }
 
     /** @test */
+    public function user_cant_purchase_inventory_no_unit_price(): void
+    {
+        $response = $this->makeRequest([
+            'quantity' => 1,
+        ]);
+
+        $this->assertSession($response, ['errors']);
+
+        $this->assertDatabaseCount('inventory_movements', 0);
+    }
+
+    /** @test */
     public function user_can_apply_inventory(): void
     {
         $this->seed(InventoryMovementSeederSimple::class);
@@ -55,6 +67,19 @@ class StoreTest extends TestCase
         $this->assertSession($response, ['errors']);
 
         $this->assertInventoryMovements();
+    }
+
+    /** @test */
+    public function user_cant_apply_inventory_0_quantity(): void
+    {
+        $response = $this->makeRequest([
+            'quantity' => 0,
+            'unit_price' => 0,
+        ]);
+
+        $this->assertSession($response, ['errors']);
+
+        $this->assertDatabaseCount('inventory_movements', 0);
     }
 
     private function makeRequest(array $data): TestResponse

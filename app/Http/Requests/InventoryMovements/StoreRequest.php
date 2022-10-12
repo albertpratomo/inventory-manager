@@ -4,6 +4,7 @@ namespace App\Http\Requests\InventoryMovements;
 
 use App\Models\InventoryMovement;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRequest extends FormRequest
 {
@@ -19,6 +20,7 @@ class StoreRequest extends FormRequest
                 'required',
                 'integer',
                 'numeric',
+                'not_in:0',
                 function ($attribute, $value, $fail) {
                     if ($value < 0) {
                         $quantityAvailable = InventoryMovement::available()->sum('remaining_quantity');
@@ -29,7 +31,13 @@ class StoreRequest extends FormRequest
                     }
                 },
             ],
-            'unit_price' => 'integer|numeric|nullable',
+            'unit_price' => [
+                Rule::requiredIf(fn () => $this->quantity > 0),
+                'integer',
+                'numeric',
+                'min:1',
+                'nullable',
+            ],
         ];
     }
 }

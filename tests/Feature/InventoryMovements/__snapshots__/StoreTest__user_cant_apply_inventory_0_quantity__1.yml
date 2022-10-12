@@ -1,0 +1,3 @@
+errors:
+    quantity: ['The selected quantity is invalid.']
+    unit_price: ['The unit price must be at least 1.']
