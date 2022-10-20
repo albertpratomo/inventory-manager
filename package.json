@@ -7,10 +7,19 @@
     "devDependencies": {
         "@inertiajs/inertia": "^0.11.1",
         "@inertiajs/inertia-vue3": "^0.6.0",
+        "@inertiajs/progress": "^0.2.7",
+        "@typescript-eslint/eslint-plugin": "^5.36.0",
+        "@typescript-eslint/parser": "^5.36.0",
+        "@vitejs/plugin-vue": "^3.0.0",
+        "@vue/tsconfig": "^0.1.3",
         "axios": "^0.27",
+        "eslint": "^8.23.0",
+        "eslint-plugin-unused-imports": "^2.0.0",
+        "eslint-plugin-vue": "^9.4.0",
         "laravel-vite-plugin": "^0.6.0",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
-        "vite": "^3.0.0"
+        "typescript": "^4.8.2",
+        "vite": "^3.0.0",
+        "vue": "^3.2.31",
+        "vue-tsc": "^0.40.4"
     }
 }
