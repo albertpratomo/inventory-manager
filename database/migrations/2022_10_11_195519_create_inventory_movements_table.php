@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('inventory_movements', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->integer('unit_price')->nullable(); // In cents.
-            $table->integer('total_price');
+            $table->integer('unit_price'); // In cents.
+            $table->integer('total_price'); // In cents.
             $table->integer('remaining_quantity');
             $table->timestamps();
         });
