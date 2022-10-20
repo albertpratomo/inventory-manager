@@ -5,13 +5,38 @@ import {useForm} from '@inertiajs/inertia-vue3';
 const mode = ref<'purchase' | 'apply'>('apply');
 
 const form = useForm({
-    quantity: 1,
+    quantity: null,
     unitPrice: null,
 });
+
+const submit = () => {
+    form
+        .transform((data) => {
+            let quantity = Math.abs(data.quantity);
+
+            if (mode.value === 'purchase') {
+                return {
+                    quantity,
+                    unitPrice: data.unitPrice ? data.unitPrice * 100 : null,
+                };
+            } else {
+                return {
+                    quantity: -1 * quantity,
+                    unitPrice: null,
+                };
+            }
+        })
+        .post('/inventory-movements', {
+            onSuccess: () => form.reset(),
+        });
+};
 </script>
 
 <template>
-    <form class="row row-cols-auto g-2 align-items-end justify-content-end">
+    <form
+        class="row row-cols-auto g-2 align-items-end justify-content-end"
+        @submit.prevent="submit"
+    >
         <div>
             <input
                 id="purchase"
@@ -54,6 +79,7 @@ const form = useForm({
             <input
                 v-model="form.quantity"
                 class="form-control"
+                min="1"
                 type="number"
             >
         </div>
@@ -67,6 +93,7 @@ const form = useForm({
             <input
                 v-model="form.unitPrice"
                 class="form-control"
+                min="1"
                 type="number"
             >
         </div>
@@ -74,10 +101,21 @@ const form = useForm({
         <div class="col">
             <button
                 class="btn btn-dark"
+                :disabled="form.quantity === 0"
                 type="submit"
             >
                 Submit
             </button>
         </div>
     </form>
+
+    <div v-if="form.hasErrors">
+        <div
+            v-for="(error, key) in form.errors"
+            :key="key"
+            class="text-end small text-danger"
+        >
+            {{ error }}
+        </div>
+    </div>
 </template>

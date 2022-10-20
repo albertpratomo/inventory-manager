@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {type PropType, ref} from 'vue';
+import {type PropType, computed, ref} from 'vue';
 import {formatNumber, formatPrice} from '@/helpers';
 import type InventoryMovement from '@/models/InventoryMovement';
 import MovementForm from '@/components/InventoryMovements/Form.vue';
@@ -14,17 +14,17 @@ const props = defineProps({
 
 const availableOnly = ref(false);
 
-const availableMovements = props.movements.filter(m => m.remainingQuantity > 0);
+const availableMovements = computed(() => props.movements.filter(m => m.remainingQuantity > 0));
 
-const totalAvailableQuantity = availableMovements.reduce(
+const totalAvailableQuantity = computed(() => availableMovements.value.reduce(
     (total, movement) => total + movement.remainingQuantity,
     0,
-);
+));
 
-const totalAvailableValuation = availableMovements.reduce(
+const totalAvailableValuation = computed(() => availableMovements.value.reduce(
     (total, movement) => total + movement.remainingQuantity * movement.unitPrice,
     0,
-);
+));
 </script>
 
 <template>
