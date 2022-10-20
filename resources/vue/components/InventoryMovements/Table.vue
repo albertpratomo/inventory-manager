@@ -1,21 +1,29 @@
 <script lang="ts" setup>
+import {type PropType, computed} from 'vue';
 import type InventoryMovement from '@/models/InventoryMovement';
-import type {PropType} from 'vue';
 
-defineProps({
+const props = defineProps({
+    availableOnly: {
+        type: Boolean,
+        default: false,
+    },
     movements: {
         type: Array as PropType<InventoryMovement[]>,
         required: true,
     },
 });
 
-const columns = [
-    'Created At',
-    'Quantity',
-    'Unit Price',
-    'Total Price',
-    'Remaining Quantity',
-];
+const columns = computed(() => {
+    return props.availableOnly
+        ? ['Created At', 'Unit Price', 'Remaining Quantity']
+        : ['Created At', 'Quantity', 'Unit Price', 'Total Price', 'Remaining Quantity'];
+});
+
+const movements = computed(() => {
+    return props.availableOnly
+        ? props.movements.filter(m => m.remainingQuantity > 0)
+        : props.movements;
+});
 
 const formatDate = (value: string) => (new Date(value)).toLocaleString('en-NZ');
 
@@ -40,13 +48,16 @@ const formatNumber = (value: number) => new Intl.NumberFormat('en-NZ').format(va
             <tr
                 v-for="movement in movements"
                 :key="movement.id"
-                :class="{'table-danger': movement.quantity < 0}"
+                :class="{
+                    'table-danger': movement.quantity < 0,
+                    'table-success': movement.remainingQuantity > 0,
+                }"
             >
                 <td class="text-start">
                     {{ formatDate(movement.createdAt) }}
                 </td>
 
-                <td>
+                <td v-if="!availableOnly">
                     {{ formatNumber(movement.quantity) }}
                 </td>
 
@@ -54,7 +65,7 @@ const formatNumber = (value: number) => new Intl.NumberFormat('en-NZ').format(va
                     {{ formatNumber(movement.unitPrice) }}
                 </td>
 
-                <td>
+                <td v-if="!availableOnly">
                     {{ formatNumber(movement.totalPrice) }}
                 </td>
 
