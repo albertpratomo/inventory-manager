@@ -1,0 +1,69 @@
+name: Test
+
+on: push
+
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'SKIP ACTIONS')"
+    container: calmiter40/sail-8.1-app
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_DATABASE: testing
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --tmpfs="/var/lib/mysql"
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Cache composer dependencies
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: composer-${{ hashFiles('composer.lock') }}
+
+    - name: Composer
+      run: |
+        composer install --no-scripts --prefer-dist
+
+    - name: Cache yarn dependencies
+      uses: actions/cache@v3
+      with:
+        path: node_modules
+        key: yarn-${{ hashFiles('yarn.lock') }}
+
+    - name: Yarn
+      run: |
+        yarn
+        yarn lint:all
+        yarn build
+
+    - name: Prepare
+      run: |
+        cp .env.example .env
+        php artisan key:generate
+
+    - name: Pint
+      run: |
+        vendor/bin/pint --test
+
+    - name: Feature - Phpunit
+      env:
+        DB_HOST: mysql
+      run: |
+        vendor/bin/phpunit tests/Feature
+
+    - name: Unit - Phpunit
+      env:
+        DB_HOST: mysql
+      run: |
+        vendor/bin/phpunit tests/Unit
