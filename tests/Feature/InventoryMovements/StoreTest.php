@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Answers;
+namespace Tests\Feature\InventoryMovements;
 
 use App\Models\InventoryMovement;
 use Database\Seeders\InventoryMovementSeederSimple;
@@ -19,7 +19,7 @@ class StoreTest extends TestCase
 
         $response = $this->makeRequest([
             'quantity' => 88,
-            'unit_price' => 1000,
+            'unitPrice' => 1000,
         ]);
 
         $this->assertResponse($response);
@@ -46,7 +46,7 @@ class StoreTest extends TestCase
 
         $response = $this->makeRequest([
             'quantity' => -2,
-            'unit_price' => null,
+            'unitPrice' => null,
         ]);
 
         $this->assertResponse($response);
@@ -61,7 +61,7 @@ class StoreTest extends TestCase
 
         $response = $this->makeRequest([
             'quantity' => -6,
-            'unit_price' => null,
+            'unitPrice' => null,
         ]);
 
         $this->assertSession($response, ['errors']);
@@ -74,7 +74,7 @@ class StoreTest extends TestCase
     {
         $response = $this->makeRequest([
             'quantity' => 0,
-            'unit_price' => 0,
+            'unitPrice' => 0,
         ]);
 
         $this->assertSession($response, ['errors']);
