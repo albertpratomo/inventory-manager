@@ -1,0 +1,18 @@
+{
+    "quantity": [
+        "required",
+        "integer",
+        "numeric",
+        "not_in:0",
+        {}
+    ],
+    "unit_price": [
+        {
+            "condition": {}
+        },
+        "integer",
+        "numeric",
+        "min:1",
+        "nullable"
+    ]
+}
