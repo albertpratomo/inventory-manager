@@ -2,7 +2,9 @@
     "private": true,
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "lint": "eslint --ext .vue,.d.ts,.ts",
+        "lint:all": "yarn lint resources/vue"
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.11.1",
@@ -19,7 +21,6 @@
         "laravel-vite-plugin": "^0.6.0",
         "typescript": "^4.8.2",
         "vite": "^3.0.0",
-        "vue": "^3.2.31",
-        "vue-tsc": "^0.40.4"
+        "vue": "^3.2.31"
     }
 }
