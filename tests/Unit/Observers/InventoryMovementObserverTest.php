@@ -21,9 +21,9 @@ class InventoryMovementObserverTest extends TestCase
         ]);
 
         // Assert that the remaining_quantity of previous InventoryMovements
-        // are decremented correctly.
+        // are decremented correctly, also total_price is calculated correctly.
         $this->assertMatchesJsonSnapshot(InventoryMovement::all([
-            'id', 'quantity', 'unit_price', 'remaining_quantity',
+            'id', 'quantity', 'unit_price', 'total_price', 'remaining_quantity',
         ])->toArray());
     }
 }

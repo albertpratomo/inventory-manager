@@ -18,7 +18,7 @@ class StoreTest extends TestCase
         $this->seed(InventoryMovementSeederSimple::class);
 
         $response = $this->makeRequest([
-            'quantity' => 88,
+            'quantity' => 1,
             'unitPrice' => 1000,
         ]);
 
@@ -96,7 +96,7 @@ class StoreTest extends TestCase
     private function assertInventoryMovements(): void
     {
         $this->assertMatchesJsonSnapshot(InventoryMovement::all([
-            'id', 'quantity', 'unit_price', 'remaining_quantity',
+            'id', 'quantity', 'unit_price', 'total_price', 'remaining_quantity',
         ])->toArray());
     }
 }

@@ -18,6 +18,7 @@ class InventoryMovementResource extends JsonResource
             'id' => $this->id,
             'quantity' => $this->quantity,
             'unitPrice' => $this->unit_price,
+            'totalPrice' => $this->total_price,
             'remainingQuantity' => $this->remaining_quantity,
             'createdAt' => $this->created_at,
         ];

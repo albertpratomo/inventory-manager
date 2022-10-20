@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('quantity');
             $table->integer('unit_price')->nullable(); // In cents.
+            $table->integer('total_price');
             $table->integer('remaining_quantity');
             $table->timestamps();
         });
