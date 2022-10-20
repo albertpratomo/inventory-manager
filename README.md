@@ -1,5 +1,7 @@
 # Inventory Manager
 
+![image](https://user-images.githubusercontent.com/25815584/197069781-47940b5f-0045-4460-b287-6ee3cc4b160a.png)
+
 This is a simple web app to manage inventory. User can purchase (add) or apply (remove) inventory. The applied inventory will be taken from the oldest available (first-in-first-out). User can also see the total available quantity and its economical valuation. The tech stack used: Laravel, Inertia, Vue 3, Vite, Typescript, Bootstrap 5.
 
 ## Getting Started
