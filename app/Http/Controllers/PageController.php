@@ -14,7 +14,7 @@ class PageController extends Controller
      */
     public function home(): Response
     {
-        $movements = InventoryMovement::all();
+        $movements = InventoryMovement::orderBy('id', 'desc')->get();
 
         return Inertia::render('Home', [
             'movements' => InventoryMovementResource::collection($movements),
