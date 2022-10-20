@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {type PropType, computed} from 'vue';
+import {formatDate, formatNumber, formatPrice} from '@/helpers';
 import type InventoryMovement from '@/models/InventoryMovement';
 
 const props = defineProps({
@@ -24,10 +25,6 @@ const movements = computed(() => {
         ? props.movements.filter(m => m.remainingQuantity > 0)
         : props.movements;
 });
-
-const formatDate = (value: string) => (new Date(value)).toLocaleString('en-NZ');
-
-const formatNumber = (value: number) => new Intl.NumberFormat('en-NZ').format(value);
 </script>
 
 <template>
@@ -62,11 +59,11 @@ const formatNumber = (value: number) => new Intl.NumberFormat('en-NZ').format(va
                 </td>
 
                 <td>
-                    {{ formatNumber(movement.unitPrice) }}
+                    {{ formatPrice(movement.unitPrice) }}
                 </td>
 
                 <td v-if="!availableOnly">
-                    {{ formatNumber(movement.totalPrice) }}
+                    {{ formatPrice(movement.totalPrice) }}
                 </td>
 
                 <td>
