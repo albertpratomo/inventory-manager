@@ -94,6 +94,7 @@ const submit = () => {
                 v-model="form.unitPrice"
                 class="form-control"
                 min="1"
+                step="any"
                 type="number"
             >
         </div>
@@ -104,6 +105,11 @@ const submit = () => {
                 :disabled="form.quantity === 0"
                 type="submit"
             >
+                <span
+                    v-if="form.processing"
+                    class="spinner-border spinner-border-sm"
+                />
+
                 Submit
             </button>
         </div>
