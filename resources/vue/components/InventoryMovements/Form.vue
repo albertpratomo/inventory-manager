@@ -34,10 +34,10 @@ const submit = () => {
 
 <template>
     <form
-        class="row row-cols-auto g-2 align-items-end justify-content-end"
+        class="row row-cols-md-auto g-2 align-items-end justify-content-end"
         @submit.prevent="submit"
     >
-        <div>
+        <div class="col-12">
             <input
                 id="purchase"
                 v-model="mode"
@@ -53,9 +53,7 @@ const submit = () => {
             >
                 Purchase
             </label>
-        </div>
 
-        <div>
             <input
                 id="apply"
                 v-model="mode"
@@ -66,14 +64,14 @@ const submit = () => {
             >
 
             <label
-                class="btn btn-outline-danger"
+                class="btn btn-outline-danger ms-2"
                 for="apply"
             >
                 Apply
             </label>
         </div>
 
-        <div class="col-lg-1">
+        <div class="col-12 col-md-2 col-lg-1">
             <label class="small">Quantity</label>
 
             <input
@@ -86,7 +84,7 @@ const submit = () => {
 
         <div
             v-if="mode === 'purchase'"
-            class="col-lg-1"
+            class="col-12 col-md-2 col-lg-1"
         >
             <label class="small">Unit Price</label>
 
@@ -99,9 +97,9 @@ const submit = () => {
             >
         </div>
 
-        <div class="col">
+        <div class="col-12 col-md-auto">
             <button
-                class="btn btn-dark"
+                class="w-100 btn btn-dark"
                 :disabled="form.quantity === 0"
                 type="submit"
             >

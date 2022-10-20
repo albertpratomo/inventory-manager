@@ -31,7 +31,7 @@ const totalAvailableValuation = computed(() => availableMovements.value.reduce(
     <main class="container py-4">
         <MovementForm />
 
-        <ul class="nav nav-tabs mt-2">
+        <ul class="nav nav-tabs mt-3">
             <li class="nav-item">
                 <a
                     class="nav-link"

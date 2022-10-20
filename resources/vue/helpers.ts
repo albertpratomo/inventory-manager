@@ -1,4 +1,10 @@
-const formatDate = (value: string) => (new Date(value)).toLocaleString('en-NZ');
+const formatDate = (value: string, hideTime = false) => {
+    const date = new Date(value);
+
+    return hideTime
+        ? date.toLocaleDateString('en-NZ')
+        : date.toLocaleString('en-NZ');
+};
 
 const formatNumber = (value: number) => new Intl.NumberFormat('en-NZ').format(value);
 
