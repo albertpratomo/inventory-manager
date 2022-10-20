@@ -2,6 +2,7 @@
 import {type PropType, ref} from 'vue';
 import {formatNumber, formatPrice} from '@/helpers';
 import type InventoryMovement from '@/models/InventoryMovement';
+import MovementForm from '@/components/InventoryMovements/Form.vue';
 import MovementsTable from '@/components/InventoryMovements/Table.vue';
 
 const props = defineProps({
@@ -27,8 +28,10 @@ const totalAvailableValuation = availableMovements.reduce(
 </script>
 
 <template>
-    <main class="container">
-        <ul class="nav nav-tabs">
+    <main class="container py-4">
+        <MovementForm />
+
+        <ul class="nav nav-tabs mt-2">
             <li class="nav-item">
                 <a
                     class="nav-link"
