@@ -54,7 +54,7 @@ class InventoryMovementObserver
             // Store the total price and unit price of this outbound movement.
             $movement->total_price = $totalPrice;
 
-            $movement->unit_price = $totalPrice / abs($movement->quantity);
+            $movement->unit_price = round($totalPrice / abs($movement->quantity));
         }
     }
 }
